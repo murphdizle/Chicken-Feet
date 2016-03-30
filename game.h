@@ -1,13 +1,44 @@
+#ifndef GAME_H
+#define GAME_H
+
+#include "bone.h"
+#include "hand.h"
+#include "yard.h"
+#include "player.h"
+#include "field.h"
+
+#include <iostream>
+
+using namespace std;
+
 class Game{
-private:
-	int turn{ 0 };
-	int players{ 0 };
-	int rounds{ 1 };
-	int currTurn{ 0 };
 public:
-	Game(int nPlayers);
-	Game(int nPlayers, int nRounds);
+	Game();
+
+	~Game();
+
+	int nextTurn();
 	void run();
-	int getTurn(){ return (currTurn++ % players); };
-	int setTurn(int start);
+	int getTurn();
+	void display();
+	void options(char ch, Yard * deck, Field *field);
+	void setForDouble(Bone*& aBone);
+	bool findMove(int side, Bone* aBone, Field *field); 
+	void gamePlay(Field *field);
+	bool firstMove(Field *field);
+	bool gameOver();
+
+
+private:
+	int turn;
+	int nPlayers;
+	int rounds;
+	int currTurn;
+	bool doublePlayed;
+	int doubleValue;
+	int doublePlays;
+	bool gameEnd;
+	vector<Player*> players;
 };
+
+#endif 
